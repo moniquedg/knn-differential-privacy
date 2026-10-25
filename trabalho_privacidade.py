@@ -421,6 +421,11 @@ def main():
         f"mediana {np.median(total):.0f}, "
         f"{np.mean(total == 0) * 100:.1f}% das tuplas de teste sem nenhum"
     )
+    # Diferença entre a maior e a segunda maior contagem: é o que o ruído precisa superar
+    # para mudar a classe prevista
+    sorted_counts = np.sort(counts, axis=1)
+    gap = sorted_counts[:, -1] - sorted_counts[:, -2]
+    print(f"Diferença entre as duas maiores contagens no raio: mediana {np.median(gap):.0f}")
     acc_radius = calculate_accuracy(y_test, counts.argmax(axis=1))
     print(
         "Referência (não privada): classificar pelas contagens no raio sem ruído dá "
